@@ -25,7 +25,7 @@ namespace WebPebbleWQemu
         {
             Console.WriteLine("Starting WebPebble WQemu...");
             //Read in the configuration.
-            config = JsonConvert.DeserializeObject<RpwsConfig>(File.ReadAllText("/home/roman/webpebble/qemu_v2/bin/config.json"));
+            config = JsonConvert.DeserializeObject<RpwsConfig>(File.ReadAllText("/home/roman/webpebble/qemu_v2/git/bin/config.json"));
             //Init Kestrel
             MainAsync().GetAwaiter().GetResult();
         }
