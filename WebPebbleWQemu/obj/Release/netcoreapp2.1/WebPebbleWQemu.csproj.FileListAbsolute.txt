@@ -1,0 +1,12 @@
+C:\Users\Roman\source\repos\WebPebbleWQemu\WebPebbleWQemu\bin\Release\netcoreapp2.1\config.json
+C:\Users\Roman\source\repos\WebPebbleWQemu\WebPebbleWQemu\bin\Release\netcoreapp2.1\WebPebbleWQemu.deps.json
+C:\Users\Roman\source\repos\WebPebbleWQemu\WebPebbleWQemu\bin\Release\netcoreapp2.1\WebPebbleWQemu.runtimeconfig.json
+C:\Users\Roman\source\repos\WebPebbleWQemu\WebPebbleWQemu\bin\Release\netcoreapp2.1\WebPebbleWQemu.runtimeconfig.dev.json
+C:\Users\Roman\source\repos\WebPebbleWQemu\WebPebbleWQemu\bin\Release\netcoreapp2.1\WebPebbleWQemu.dll
+C:\Users\Roman\source\repos\WebPebbleWQemu\WebPebbleWQemu\bin\Release\netcoreapp2.1\WebPebbleWQemu.pdb
+C:\Users\Roman\source\repos\WebPebbleWQemu\WebPebbleWQemu\obj\Release\netcoreapp2.1\WebPebbleWQemu.csprojAssemblyReference.cache
+C:\Users\Roman\source\repos\WebPebbleWQemu\WebPebbleWQemu\obj\Release\netcoreapp2.1\WebPebbleWQemu.csproj.CoreCompileInputs.cache
+C:\Users\Roman\source\repos\WebPebbleWQemu\WebPebbleWQemu\obj\Release\netcoreapp2.1\WebPebbleWQemu.AssemblyInfoInputs.cache
+C:\Users\Roman\source\repos\WebPebbleWQemu\WebPebbleWQemu\obj\Release\netcoreapp2.1\WebPebbleWQemu.AssemblyInfo.cs
+C:\Users\Roman\source\repos\WebPebbleWQemu\WebPebbleWQemu\obj\Release\netcoreapp2.1\WebPebbleWQemu.dll
+C:\Users\Roman\source\repos\WebPebbleWQemu\WebPebbleWQemu\obj\Release\netcoreapp2.1\WebPebbleWQemu.pdb
