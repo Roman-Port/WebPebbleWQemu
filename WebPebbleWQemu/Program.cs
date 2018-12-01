@@ -150,6 +150,8 @@ namespace WebPebbleWQemu
                     string token = e.Request.Query["proxy_token"];
                     if(vnc_tokens.ContainsKey(token))
                     {
+                        //Add the header that a web browser wants.
+                        e.Response.Headers.Add("Sec-WebSocket-Protocol", "binary");
                         //Upgrade to a websocket.
                         WebSocket ws = await e.WebSockets.AcceptWebSocketAsync();
                         VncProxyService.VncProxy session = new VncProxyService.VncProxy(token);
