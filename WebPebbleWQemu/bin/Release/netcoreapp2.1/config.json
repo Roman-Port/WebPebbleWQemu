@@ -1,3 +1,57 @@
 ﻿{
-  "ssl_cert_path": "/home/roman/webpebble/cert.pfx"
+  "ssl_cert_path": "/home/roman/webpebble/cert.pfx",
+  "qemu_session_dir": "/home/roman/webpebble/qemu_v2/temporary_sessions/",
+  "qemu_binary": "/home/roman/webpebble/qemu/qemu/pebble-qemu/arm-softmmu/qemu-system-arm",
+  "flash_bins": {
+    "aplite": {
+      "micro_flash": "/home/roman/webpebble/qemu/flash/aplite/qemu_micro_flash.bin",
+      "spi_flash": "/home/roman/webpebble/qemu/flash/aplite/qemu_spi_flash.bin",
+      "layouts": "/home/roman/webpebble/qemu/flash/aplite/layouts.json",
+      "args": [
+        "-machine pebble-bb2",
+        "-cpu cortex-m3",
+        "-drive file=qemu_spi_flash,if=pflash,format=raw"
+      ]
+    },
+    "basalt": {
+      "micro_flash": "/home/roman/webpebble/qemu/flash/basalt/qemu_micro_flash.bin",
+      "spi_flash": "/home/roman/webpebble/qemu/flash/basalt/qemu_spi_flash.bin",
+      "layouts": "/home/roman/webpebble/qemu/flash/basalt/layouts.json",
+      "args": [
+        "-machine pebble-snowy-bb",
+        "-cpu cortex-m4",
+        "-drive file=qemu_spi_flash,if=pflash,format=raw"
+      ]
+    },
+    "chalk": {
+      "micro_flash": "/home/roman/webpebble/qemu/flash/chalk/qemu_micro_flash.bin",
+      "spi_flash": "/home/roman/webpebble/qemu/flash/chalk/qemu_spi_flash.bin",
+      "layouts": "/home/roman/webpebble/qemu/flash/chalk/layouts.json",
+      "args": [
+        "-machine pebble-s4-bb",
+        "-cpu cortex-m4",
+        "-drive file=qemu_spi_flash,if=pflash,format=raw"
+      ]
+    },
+    "diorite": {
+      "micro_flash": "/home/roman/webpebble/qemu/flash/diorite/qemu_micro_flash.bin",
+      "spi_flash": "/home/roman/webpebble/qemu/flash/diorite/qemu_spi_flash.bin",
+      "layouts": "/home/roman/webpebble/qemu/flash/diorite/layouts.json",
+      "args": [
+        "-machine pebble-silk-bb",
+        "-cpu cortex-m4",
+        "-drive file=qemu_spi_flash,if=pflash,format=raw"
+      ]
+    },
+    "emery": {
+      "micro_flash": "/home/roman/webpebble/qemu/flash/emery/qemu_micro_flash.bin",
+      "spi_flash": "/home/roman/webpebble/qemu/flash/emery/qemu_spi_flash.bin",
+      "layouts": "/home/roman/webpebble/qemu/flash/emery/layouts.json",
+      "args": [
+        "-machine pebble-robert-bb",
+        "-cpu cortex-m4",
+        "-drive file=qemu_spi_flash,if=pflash,format=raw"
+      ]
+    }
+  }
 }

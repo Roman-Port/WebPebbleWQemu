@@ -5,14 +5,14 @@ using System.Text;
 namespace WebPebbleWQemu.Entities
 {
     /// <summary>
-    /// Incoming message to us, not the proxy.
+    /// Message to them, not the proxy.
     /// </summary>
-    public class IncomingRpwsRequest<T>
+    public class OutgoingRpwsRequest<T>
     {
         /// <summary>
         /// Incoming request type, used for serialiation and redirection.
         /// </summary>
-        public IncomingRpwsRequestType type;
+        public OutgoingRpwsRequestType type;
 
         /// <summary>
         /// The request ID echoed back to the client. Echo will be -1 if this is an event.
@@ -25,11 +25,9 @@ namespace WebPebbleWQemu.Entities
         public T payload;
     }
 
-    /// <summary>
-    /// The type of request. Used for deserialization.
-    /// </summary>
-    public enum IncomingRpwsRequestType
+    public enum OutgoingRpwsRequestType
     {
-        StartQemu
+        Reply, //Only used if ID != -1
+
     }
 }

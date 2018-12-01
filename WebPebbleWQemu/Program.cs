@@ -17,6 +17,8 @@ namespace WebPebbleWQemu
     {
         public static WebPebbleWQemu.RpwsConfig config;
 
+        public static bool[] openSessions = new bool[32];
+
         /// <summary>
         /// Provides control for QEMU and a proxy bridge for VNC, all via WebSockets.
         /// </summary>
@@ -26,6 +28,9 @@ namespace WebPebbleWQemu
             Console.WriteLine("Starting WebPebble WQemu...");
             //Read in the configuration.
             config = JsonConvert.DeserializeObject<RpwsConfig>(File.ReadAllText("/home/roman/webpebble/qemu_v2/git/bin/config.json"));
+            //Populate sessions storage
+            for (int i = 0; i < openSessions.Length; i++)
+                openSessions[i] = true;
             //Init Kestrel
             MainAsync().GetAwaiter().GetResult();
         }
