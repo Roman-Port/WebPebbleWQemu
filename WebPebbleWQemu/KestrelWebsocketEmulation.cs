@@ -21,7 +21,7 @@ namespace WebPebbleWQemu
             //Generate our class and start listening.
             this.ws = ws;
             this.http = context;
-
+            OnOpen();
             await WaitForMessage();
         }
 
@@ -94,6 +94,14 @@ namespace WebPebbleWQemu
         /// Called on disconnect.
         /// </summary>
         public virtual void OnClose()
+        {
+
+        }
+
+        /// <summary>
+        /// On opening.
+        /// </summary>
+        public virtual void OnOpen()
         {
 
         }

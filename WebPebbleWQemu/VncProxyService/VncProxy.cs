@@ -31,6 +31,11 @@ namespace WebPebbleWQemu.VncProxyService
                 ReportError(ex);
             }
 
+            //We'll start getting data once we're connected.
+        }
+
+        public override void OnOpen()
+        {
             //Start getting data.
             BeginAwaitData();
         }
@@ -58,8 +63,7 @@ namespace WebPebbleWQemu.VncProxyService
                 Array.Copy(buffer, buf, len);
 
                 //Send to the end client
-                //Send(buf);
-                Send("test");
+                Send(buf);
 
                 //Begin listening for new content.
                 BeginAwaitData();
