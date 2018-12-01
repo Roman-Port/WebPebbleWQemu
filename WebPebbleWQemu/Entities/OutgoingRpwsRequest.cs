@@ -29,5 +29,6 @@ namespace WebPebbleWQemu.Entities
     {
         Reply, //Only used if ID != -1
         LogEvent, //Logging.
+        ErrorEvent, //Reserved for errors.
     }
 }

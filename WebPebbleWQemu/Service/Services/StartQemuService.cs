@@ -28,7 +28,8 @@ namespace WebPebbleWQemu.Service.Services
             //If the session ID is -1, one was not found.
             if(sessionId == -1)
             {
-                throw new NotImplementedException();
+                session.ErrorToClient("Failed to find a QEMU slot; All are full. Please wait a few minutes and try again.", id, -1, true);
+                return;
             }
 
             session.LogToClient("Slot found. Creating QEMU processes...", id, 0);
@@ -38,8 +39,16 @@ namespace WebPebbleWQemu.Service.Services
 
             //Go through the setup process.
             session.qemu.SpawnProcesses();
-            session.LogToClient("Opened QEMU. Waiting for the process to begin...", id, 0);
-            session.qemu.WaitForQemu();
+            session.LogToClient("Opened QEMU. Waiting for the process to begin...", id, 1);
+            try
+            {
+                session.qemu.WaitForQemu();
+            } catch (Exception ex)
+            {
+                //Gracefully fail.
+                session.ErrorToClient(ex.Message, id, -1, true);
+                return;
+            }
 
             //Tell the client that it's aye-okay to connect over VNC.
             session.SendStandardMessage(new Dictionary<string, string>

@@ -38,6 +38,13 @@ namespace WebPebbleWQemu.Service
             //Deserialize the header info first.
             IncomingRpwsRequest<Dictionary<string, string>> request = JsonConvert.DeserializeObject<IncomingRpwsRequest<Dictionary<string, string>>>(content);
             //Check the type against our records.
+            try
+            {
+
+            } catch (Exception ex)
+            {
+                ErrorToClient("**UNKNOWN FATAL ERROR**\n" + ex.Message + "\nat\n" + ex.StackTrace, request.id, -1, true);
+            }
             services[request.type](this, request.payload, request.id);
         }
 
@@ -93,6 +100,31 @@ namespace WebPebbleWQemu.Service
                     "metadata", eventMeta.ToString()
                 }
             }, OutgoingRpwsRequestType.LogEvent);
+        }
+
+        /// <summary>
+        /// Sends a error event to the client.
+        /// </summary>
+        /// <param name="message">Text message</param>
+        /// <param name="id">The ID of the request. -1 if this is an event.</param>
+        /// <param name="eventMeta">Optional user metadata provided to the client to deal with.</param>
+        public void ErrorToClient(string message, int id = -1, int eventMeta = -1, bool fatal = false)
+        {
+            SendStandardMessage(new Dictionary<string, string>
+            {
+                {
+                    "id", id.ToString()
+                },
+                {
+                    "msg", message
+                },
+                {
+                    "metadata", eventMeta.ToString()
+                },
+                {
+                    "fatal", fatal.ToString()
+                }
+            }, OutgoingRpwsRequestType.ErrorEvent);
         }
 
         /// <summary>
