@@ -9,3 +9,4 @@ C:\Users\Roman\source\repos\WebPebbleWQemu\WebPebbleWQemu\obj\Release\netcoreapp
 C:\Users\Roman\source\repos\WebPebbleWQemu\WebPebbleWQemu\obj\Release\netcoreapp2.1\linux-x64\WebPebbleWQemu.AssemblyInfo.cs
 C:\Users\Roman\source\repos\WebPebbleWQemu\WebPebbleWQemu\obj\Release\netcoreapp2.1\linux-x64\WebPebbleWQemu.dll
 C:\Users\Roman\source\repos\WebPebbleWQemu\WebPebbleWQemu\obj\Release\netcoreapp2.1\linux-x64\WebPebbleWQemu.pdb
+C:\Users\Roman\source\repos\WebPebbleWQemu\WebPebbleWQemu\obj\Release\netcoreapp2.1\linux-x64\WebPebbleWQemu.csprojAssemblyReference.cache

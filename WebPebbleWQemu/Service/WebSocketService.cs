@@ -40,12 +40,11 @@ namespace WebPebbleWQemu.Service
             //Check the type against our records.
             try
             {
-
+                services[request.type](this, request.payload, request.id);
             } catch (Exception ex)
             {
                 ErrorToClient("**UNKNOWN FATAL ERROR**\n" + ex.Message + "\nat\n" + ex.StackTrace, request.id, -1, true);
             }
-            services[request.type](this, request.payload, request.id);
         }
 
         /// <summary>
