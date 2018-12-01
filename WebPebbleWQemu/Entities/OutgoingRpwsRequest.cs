@@ -28,6 +28,6 @@ namespace WebPebbleWQemu.Entities
     public enum OutgoingRpwsRequestType
     {
         Reply, //Only used if ID != -1
-
+        LogEvent, //Logging.
     }
 }

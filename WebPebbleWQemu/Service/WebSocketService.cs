@@ -74,6 +74,28 @@ namespace WebPebbleWQemu.Service
         }
 
         /// <summary>
+        /// Sends a logging event to the client.
+        /// </summary>
+        /// <param name="message">Text message</param>
+        /// <param name="id">The ID of the request. -1 if this is an event.</param>
+        /// <param name="eventMeta">Optional user metadata provided to the client to deal with.</param>
+        public void LogToClient(string message, int id = -1, int eventMeta = -1)
+        {
+            SendStandardMessage(new Dictionary<string, string>
+            {
+                {
+                    "id", id.ToString()
+                },
+                {
+                    "msg", message
+                },
+                {
+                    "metadata", eventMeta.ToString()
+                }
+            }, OutgoingRpwsRequestType.LogEvent);
+        }
+
+        /// <summary>
         /// Binary frame, likely to be from the VNC connection. Forward to the VNC stream.
         /// </summary>
         /// <param name="content"></param>
