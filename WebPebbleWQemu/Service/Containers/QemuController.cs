@@ -54,7 +54,8 @@ namespace WebPebbleWQemu.Service.Containers
             this.sessionDir = $"{Program.config.qemu_session_dir}sid_{sessionId.ToString()}/";
 
             //Ensure the session dir is new.
-            Directory.Delete(sessionDir, true);
+            if(Directory.Exists(sessionDir))
+                Directory.Delete(sessionDir, true);
             Directory.CreateDirectory(sessionDir);
 
             //Configure ports
