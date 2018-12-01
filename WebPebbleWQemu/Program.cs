@@ -47,8 +47,7 @@ namespace WebPebbleWQemu
                 .UseKestrel(options =>
                 {
                     IPAddress addr = IPAddress.Any;
-                    options.Listen(addr, 80);
-                    options.Listen(addr, 443, listenOptions =>
+                    options.Listen(addr, 22485, listenOptions =>
                     {
                         listenOptions.UseHttps(config.ssl_cert_path, "");
                     });
