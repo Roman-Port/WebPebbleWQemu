@@ -89,13 +89,13 @@ namespace WebPebbleWQemu.Service.Containers
         /// <summary>
         /// Create processes. Should be done near the creation of this object.
         /// </summary>
-        public void SpawnProcesses()
+        public string SpawnProcesses(out string args)
         {
             //First, copy the images so we have a clean spot.
             CopyImages();
 
             //Create the boot args for QEMU
-            string args = "-rtc base=localtime ";
+            args = "-rtc base=localtime ";
             args += "-serial null ";
             args += "-serial tcp::" + port_qemuTcp1 + ",server,nowait ";
             args += "-serial tcp::" + port_qemuSerial + ",server ";
@@ -105,13 +105,13 @@ namespace WebPebbleWQemu.Service.Containers
 
             //Add command line args from the config json for this platform.
             foreach(string s in Program.config.flash_bins[hardware].args)
-                args += s.Replace("qemu_spi_flash", sessionDir + "micro_flash.bin") + " ";
+                args += s.Replace("qemu_spi_flash", sessionDir + "spi_flash.bin") + " ";
 
             //Now, start the QEMU process.
             ProcessStartInfo startInfo = new ProcessStartInfo() { FileName = Program.config.qemu_binary, Arguments = args };
             qemuProcess = new Process() { StartInfo = startInfo, };
             qemuProcess.Start();
-            Program.Log($"QEMU session {sessionId} launched QEMU with PID of {qemuProcess.Id}.");
+            return $"QEMU session {sessionId} launched QEMU with PID of {qemuProcess.Id}.";
         }
 
         public void WaitForQemu()

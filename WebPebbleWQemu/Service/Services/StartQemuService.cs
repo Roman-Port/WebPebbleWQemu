@@ -38,8 +38,12 @@ namespace WebPebbleWQemu.Service.Services
             session.qemu = new Containers.QemuController(payload["hardware"], sessionId);
 
             //Go through the setup process.
-            session.qemu.SpawnProcesses();
-            session.LogToClient("Opened QEMU. Waiting for the process to begin...", id, 1);
+            string log = session.qemu.SpawnProcesses(out string args);
+
+            session.LogToClient("Started QEMU process with arguments "+args, id, 1);
+            session.LogToClient(log, id, 2);
+
+            session.LogToClient("Opened QEMU. Waiting for the process to begin...", id, 3);
             try
             {
                 session.qemu.WaitForQemu();
