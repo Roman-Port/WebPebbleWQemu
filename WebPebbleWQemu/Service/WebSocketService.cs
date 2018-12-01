@@ -22,12 +22,30 @@ namespace WebPebbleWQemu.Service
             }
         };
 
+        public WebSocketService()
+        {
+            //Generate a token and insert it into the dictonary.
+            vnc_token = Program.GenerateRandomString(32);
+            while (Program.vnc_tokens.ContainsKey(vnc_token))
+                vnc_token = Program.GenerateRandomString(32);
+            Program.vnc_tokens.Add(vnc_token, this);
+        }
+
         /* Session vars */
         /// <summary>
         /// QEMU session. Only not null if we got a request to start it.
         /// </summary>
         public QemuController qemu;
 
+        /// <summary>
+        /// VNC token used for accessing this session from a 2nd websocket
+        /// </summary>
+        public string vnc_token;
+
+        /// <summary>
+        /// The proxy client. May be null.
+        /// </summary>
+        public VncProxyService.VncProxy vncProxy;
 
         /// <summary>
         /// Text frame, likely to be to us. Handle it with a service after deserialization.

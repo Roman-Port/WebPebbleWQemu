@@ -20,6 +20,11 @@ namespace WebPebbleWQemu
         public static bool[] openSessions = new bool[32];
 
         /// <summary>
+        /// Tokens to access sessions from a 2nd WebSocket connection for VNC.
+        /// </summary>
+        public static Dictionary<string, Service.WebSocketService> vnc_tokens = new Dictionary<string, Service.WebSocketService>();
+
+        /// <summary>
         /// Provides control for QEMU and a proxy bridge for VNC, all via WebSockets.
         /// </summary>
         /// <param name="args"></param>
@@ -53,6 +58,19 @@ namespace WebPebbleWQemu
                 .Build();
 
             return host.RunAsync();
+        }
+
+        public static Random rand = new Random();
+
+        public static string GenerateRandomString(int length)
+        {
+            string output = "";
+            char[] chars = "qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM".ToCharArray();
+            for (int i = 0; i < length; i++)
+            {
+                output += chars[rand.Next(0, chars.Length)];
+            }
+            return output;
         }
 
         public void Configure(IApplicationBuilder app, IApplicationLifetime applicationLifetime)
@@ -124,10 +142,33 @@ namespace WebPebbleWQemu
             //If this is a websocket, switch to that.
             if (e.WebSockets.IsWebSocketRequest)
             {
-                //Upgrade to a websocket.
-                WebSocket ws = await e.WebSockets.AcceptWebSocketAsync();
-                Service.WebSocketService session = new Service.WebSocketService();
-                await session.StartSession(e, ws);
+                //Check if this is trying to view the VNC connection.
+                if(e.Request.Query.ContainsKey("proxy_token"))
+                {
+                    //Proxy request
+                    //Validate
+                    string token = e.Request.Query["proxy_token"];
+                    if(vnc_tokens.ContainsKey(token))
+                    {
+                        //Upgrade to a websocket.
+                        WebSocket ws = await e.WebSockets.AcceptWebSocketAsync();
+                        VncProxyService.VncProxy session = new VncProxyService.VncProxy(token);
+                        await session.StartSession(e, ws);
+                    } else
+                    {
+                        //Bad token.
+                        await QuickWriteToDoc(e, "Invalid VNC proxy access token; dropped.", "text/plain", 404);
+                        Log("Bad VNC token.");
+                    }
+                } else
+                {
+                    //Session request.
+                    //Upgrade to a websocket.
+                    WebSocket ws = await e.WebSockets.AcceptWebSocketAsync();
+                    Service.WebSocketService session = new Service.WebSocketService();
+                    await session.StartSession(e, ws);
+                }
+                
                 return;
             }
 

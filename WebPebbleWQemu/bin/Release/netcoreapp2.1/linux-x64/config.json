@@ -2,6 +2,7 @@
   "ssl_cert_path": "/home/roman/webpebble/cert.pfx",
   "qemu_session_dir": "/home/roman/webpebble/qemu_v2/temporary_sessions/",
   "qemu_binary": "/home/roman/webpebble/qemu/qemu/pebble-qemu/arm-softmmu/qemu-system-arm",
+  "public_host": "api.webpebble.get-rpws.com",
   "flash_bins": {
     "aplite": {
       "micro_flash": "/home/roman/webpebble/qemu/flash/aplite/qemu_micro_flash.bin",

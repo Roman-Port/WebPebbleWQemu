@@ -28,6 +28,11 @@ namespace WebPebbleWQemu
         /// The execuatable for qemu
         /// </summary>
         public string qemu_binary;
+
+        /// <summary>
+        /// Our hostname, "api.webpebble.get-rpws.com"
+        /// </summary>
+        public string public_host;
     }
 
     /// <summary>

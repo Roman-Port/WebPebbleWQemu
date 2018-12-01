@@ -59,6 +59,9 @@ namespace WebPebbleWQemu.Service.Services
             {
                 {
                     "ok", "true"
+                },
+                {
+                    "url", $"wss://{Program.config.public_host}/?proxy_token={session.vnc_token}"
                 }
             }, id);
         }
