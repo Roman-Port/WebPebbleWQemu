@@ -21,9 +21,15 @@ namespace WebPebbleWQemu.VncProxyService
             int port = session.qemu.port_vnc;
             session.vncProxy = this;
 
-            //Connect with the TCP client and start the proxy server.
-            client = new TcpClient();
-            client.Connect(new IPEndPoint(IPAddress.Loopback, port));
+            try
+            {
+                //Connect with the TCP client and start the proxy server.
+                client = new TcpClient();
+                client.Connect(new IPEndPoint(IPAddress.Loopback, port));
+            } catch (Exception ex)
+            {
+                ReportError(ex);
+            }
 
             //Start getting data.
             BeginAwaitData();
@@ -31,29 +37,58 @@ namespace WebPebbleWQemu.VncProxyService
 
         private void BeginAwaitData()
         {
-            client.Client.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(OnGotDataFromProxy), null);
+            try
+            {
+                client.Client.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(OnGotDataFromProxy), null);
+            } catch (Exception ex)
+            {
+                ReportError(ex);
+            }
         }
 
         private void OnGotDataFromProxy(IAsyncResult ar)
         {
-            //Copy this frame and broadcast it to the end client.
-            int len = client.Client.EndReceive(ar);
+            try
+            {
+                //Copy this frame and broadcast it to the end client.
+                int len = client.Client.EndReceive(ar);
 
-            //Copy this into a smaller array and send it to the client.
-            byte[] buf = new byte[len];
-            Array.Copy(buffer, buf, len);
+                //Copy this into a smaller array and send it to the client.
+                byte[] buf = new byte[len];
+                Array.Copy(buffer, buf, len);
 
-            //Send to the end client
-            Send(buf);
+                //Send to the end client
+                Send(buf);
 
-            //Begin listening for new content.
-            BeginAwaitData();
+                //Begin listening for new content.
+                BeginAwaitData();
+            } catch (Exception ex)
+            {
+                ReportError(ex);
+            }
         }
 
         public override void OnBinaryMessage(byte[] content)
         {
             //Got new content from our WebSocket client. Proxy it to the VNC connection.
             client.Client.Send(content);
+        }
+
+        private void ReportError(string message)
+        {
+            //Report error through main channel.
+            Program.vnc_tokens[token].SendStandardMessage(new Dictionary<string, string>
+            {
+                {
+                    "message", message
+                }
+            }, Entities.OutgoingRpwsRequestType.VncProxyError);
+        }
+
+        private void ReportError(Exception ex)
+        {
+            //Convert this to a string and report it.
+            ReportError($"Error: {ex.Message}\n\nStack: {ex.StackTrace}");
         }
 
         public override void OnClose()

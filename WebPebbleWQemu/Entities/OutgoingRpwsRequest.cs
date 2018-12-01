@@ -30,5 +30,6 @@ namespace WebPebbleWQemu.Entities
         Reply, //Only used if ID != -1
         LogEvent, //Logging.
         ErrorEvent, //Reserved for errors.
+        VncProxyError, //Used for errors in the vnc proxy. Usually fatal.
     }
 }
