@@ -58,7 +58,8 @@ namespace WebPebbleWQemu.VncProxyService
                 Array.Copy(buffer, buf, len);
 
                 //Send to the end client
-                Send(buf);
+                //Send(buf);
+                Send("test");
 
                 //Begin listening for new content.
                 BeginAwaitData();
